@@ -24,9 +24,9 @@ function fish_greeting -d 'Show greeting in login shell.'
       and not set -q -x RANGER_LEVEL
       and not set -q -x VIM
       end
-      echo This is (set_color -b $mudfencer_colors[2] \
-      $mudfencer_colors[10])mudfencer(set_color normal) theme for fish, a theme for nerds.
-      echo Type (set_color -b $mudfencer_colors[2] $mudfencer_colors[6])»mudfencer_help«(set_color normal) in order to see how you can speed up your workflow.
+      fish_logo brmagenta brblue bryellow \\ o
+      echo Welcome to (set_color -b $mudfencer_colors[2] \
+      $mudfencer_colors[10])fish ~>(set_color normal). 
       end
   end
 end
