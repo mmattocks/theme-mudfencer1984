@@ -1,7 +1,7 @@
 ###############################################################################
 #
 # Prompt theme name:
-#   budspencer
+#   mudfencer
 #
 # Description:
 #   a sophisticated airline/powerline theme
@@ -36,26 +36,26 @@
 ###############################################################################
 
 # Define colors
-set -U budspencer_night 000000 083743 445659 fdf6e3 b58900 cb4b16 dc121f af005f 6c71c4 268bd2 2aa198 859900
-set -U budspencer_day 000000 333333 666666 ffffff ffff00 ff6600 ff0000 ff0033 3300ff 00aaff 00ffff 00ff00
-if not set -q budspencer_colors
+set -U mudfencer_night 000000 083743 445659 fdf6e3 b58900 cb4b16 dc121f af005f 6c71c4 268bd2 2aa198 859900
+set -U mudfencer_day 000000 333333 666666 ffffff ffff00 ff6600 ff0000 ff0033 3300ff 00aaff 00ffff 00ff00
+if not set -q mudfencer_colors
   # Values are: black dark_gray light_gray white yellow orange red magenta violet blue cyan green
-  set -U budspencer_colors $budspencer_night
+  set -U mudfencer_colors $mudfencer_night
 end
 
 # Cursor color changes according to vi-mode
 # Define values for: normal_mode insert_mode visual_mode
-set -U budspencer_cursors "\033]12;#$budspencer_colors[10]\007" "\033]12;#$budspencer_colors[5]\007" "\033]12;#$budspencer_colors[8]\007" "\033]12;#$budspencer_colors[9]\007"
+set -U mudfencer_cursors "\033]12;#$mudfencer_colors[10]\007" "\033]12;#$mudfencer_colors[5]\007" "\033]12;#$mudfencer_colors[8]\007" "\033]12;#$mudfencer_colors[9]\007"
 
 ###############################################################################
 # => Files
 ###############################################################################
 
 # Config file
-set -g budspencer_config "$HOME/.config/fish/budspencer_config.fish"
+set -g mudfencer_config "$HOME/.config/fish/mudfencer_config.fish"
 
 # Temporary files
-set -g budspencer_tmpfile '/tmp/'(echo %self)'_budspencer_edit.fish'
+set -g mudfencer_tmpfile '/tmp/'(echo %self)'_mudfencer_edit.fish'
 
 ###############################################################################
 # => Functions
@@ -64,11 +64,11 @@ set -g budspencer_tmpfile '/tmp/'(echo %self)'_budspencer_edit.fish'
 ##############
 # => Ring bell
 ##############
-if set -q budspencer_nobell
-  function __budspencer_urgency -d 'Do nothing.'
+if set -q mudfencer_nobell
+  function __mudfencer_urgency -d 'Do nothing.'
   end
 else
-  function __budspencer_urgency -d 'Ring the bell in order to set the urgency hint flag.'
+  function __mudfencer_urgency -d 'Ring the bell in order to set the urgency hint flag.'
     echo -n \a
   end
 end
@@ -86,8 +86,8 @@ end
 #########
 # => Help
 #########
-function budspencer_help -d 'Show helpfile'
-  set -l readme_file "$OMF_PATH/themes/budspencer/README.md"
+function mudfencer_help -d 'Show helpfile'
+  set -l readme_file "$OMF_PATH/themes/mudfencer/README.md"
   if set -q PAGER
     if [ -e $readme_file ]
       eval $PAGER $readme_file
@@ -104,19 +104,19 @@ end
 # => Environment
 ################
 function day -d "Set color palette for bright environment."
-  set budspencer_colors $budspencer_day
-  set budspencer_cursors "\033]12;#$budspencer_colors[10]\007" "\033]12;#$budspencer_colors[5]\007" "\033]12;#$budspencer_colors[8]\007" "\033]12;#$budspencer_colors[9]\007"
+  set mudfencer_colors $mudfencer_day
+  set mudfencer_cursors "\033]12;#$mudfencer_colors[10]\007" "\033]12;#$mudfencer_colors[5]\007" "\033]12;#$mudfencer_colors[8]\007" "\033]12;#$mudfencer_colors[9]\007"
 end
 
 function night -d "Set color palette for dark environment."
-  set budspencer_colors $budspencer_night
-  set budspencer_cursors "\033]12;#$budspencer_colors[10]\007" "\033]12;#$budspencer_colors[5]\007" "\033]12;#$budspencer_colors[8]\007" "\033]12;#$budspencer_colors[9]\007"
+  set mudfencer_colors $mudfencer_night
+  set mudfencer_cursors "\033]12;#$mudfencer_colors[10]\007" "\033]12;#$mudfencer_colors[5]\007" "\033]12;#$mudfencer_colors[8]\007" "\033]12;#$mudfencer_colors[9]\007"
 end
 
 ################
 # => Pre execute
 ################
-function __budspencer_preexec -d 'Execute after hitting <Enter> before doing anything else'
+function __mudfencer_preexec -d 'Execute after hitting <Enter> before doing anything else'
   set -l cmd (commandline | sed 's|\s\+|\x1e|g')
   if [ $_ = 'fish' ]
     if [ -z $cmd[1] ]
@@ -125,10 +125,10 @@ function __budspencer_preexec -d 'Execute after hitting <Enter> before doing any
     if [ -z $cmd[1] ]
       return
     end
-    set -e budspencer_prompt_error[1]
+    set -e mudfencer_prompt_error[1]
     if not type -q $cmd[1]
       if [ -d $cmd[1] ]
-        set budspencer_prompt_error (cd $cmd[1] 2>&1)
+        set mudfencer_prompt_error (cd $cmd[1] 2>&1)
         and commandline ''
         commandline -f repaint
         return
@@ -148,10 +148,10 @@ function __budspencer_preexec -d 'Execute after hitting <Enter> before doing any
         end
       case 'cd'
         if [ (count $cmd) -le 2 ]
-          set budspencer_prompt_error (eval $cmd 2>&1)
+          set mudfencer_prompt_error (eval $cmd 2>&1)
           and commandline ''
-          if [ (count $budspencer_prompt_error) -gt 1 ]
-            set budspencer_prompt_error $budspencer_prompt_error[1]
+          if [ (count $mudfencer_prompt_error) -gt 1 ]
+            set mudfencer_prompt_error $mudfencer_prompt_error[1]
           end
           commandline -f repaint
           return
@@ -171,15 +171,15 @@ end
 #####################
 # => Fish termination
 #####################
-function __budspencer_on_termination -s HUP -s INT -s QUIT -s TERM --on-process %self -d 'Execute when shell terminates'
-  set -l item (contains -i %self $budspencer_sessions_active_pid 2> /dev/null)
-  __budspencer_detach_session $item
+function __mudfencer_on_termination -s HUP -s INT -s QUIT -s TERM --on-process %self -d 'Execute when shell terminates'
+  set -l item (contains -i %self $mudfencer_sessions_active_pid 2> /dev/null)
+  __mudfencer_detach_session $item
 end
 
 ######################
 # => Directory history
 ######################
-function __budspencer_create_dir_hist -v PWD -d 'Create directory history without duplicates'
+function __mudfencer_create_dir_hist -v PWD -d 'Create directory history without duplicates'
   if [ "$pwd_hist_lock" = false ]
     if contains $PWD $$dir_hist
       set -e $dir_hist[1][(contains -i $PWD $$dir_hist)]
@@ -189,7 +189,7 @@ function __budspencer_create_dir_hist -v PWD -d 'Create directory history withou
   end
 end
 
-function __budspencer_cd_prev -d 'Change to previous directory, press H in NORMAL mode.'
+function __mudfencer_cd_prev -d 'Change to previous directory, press H in NORMAL mode.'
   if [ $dir_hist_val -gt 1 ]
     set dir_hist_val (expr $dir_hist_val - 1)
     set pwd_hist_lock true
@@ -198,7 +198,7 @@ function __budspencer_cd_prev -d 'Change to previous directory, press H in NORMA
   end
 end
 
-function __budspencer_cd_next -d 'Change to next directory, press L in NORMAL mode.'
+function __mudfencer_cd_next -d 'Change to next directory, press L in NORMAL mode.'
   if [ $dir_hist_val -lt (count $$dir_hist) ]
     set dir_hist_val (expr $dir_hist_val + 1)
     set pwd_hist_lock true
@@ -225,7 +225,7 @@ function d -d 'List directory history, jump to directory in list with d <number>
       if [ (expr \( $num_items - $i \) \% 2) -eq 0 ]
         set_color normal
       else
-        set_color $budspencer_colors[4]
+        set_color $mudfencer_colors[4]
       end
       echo '▶' (expr $num_items - $i)\t$$dir_hist[1][$i] | sed "s|$HOME|~|"
     end
@@ -234,14 +234,14 @@ function d -d 'List directory history, jump to directory in list with d <number>
     else
       set last_item '-'(expr $num_items - 1)
     end
-    echo -en $budspencer_cursors[2]
+    echo -en $mudfencer_cursors[2]
     set input_length (expr length (expr $num_items - 1))
-    read -p 'echo -n (set_color -b $budspencer_colors[2] $budspencer_colors[5])" ♻ Goto [e|0"$last_item"] "(set_color -b normal $budspencer_colors[2])" "(set_color $budspencer_colors[5])' -n $input_length -l dir_num
+    read -p 'echo -n (set_color -b $mudfencer_colors[2] $mudfencer_colors[5])" ♻ Goto [e|0"$last_item"] "(set_color -b normal $mudfencer_colors[2])" "(set_color $mudfencer_colors[5])' -n $input_length -l dir_num
     switch $dir_num
       case (seq 0 (expr $num_items - 1))
         cd $$dir_hist[1][(expr $num_items - $dir_num)]
       case 'e'
-        read -p 'echo -n (set_color -b $budspencer_colors[2] $budspencer_colors[5])" ♻ Erase [0"$last_item"] "(set_color -b normal $budspencer_colors[2])" "(set_color $budspencer_colors[5])' -n $input_length -l dir_num
+        read -p 'echo -n (set_color -b $mudfencer_colors[2] $mudfencer_colors[5])" ♻ Erase [0"$last_item"] "(set_color -b normal $mudfencer_colors[2])" "(set_color $mudfencer_colors[5])' -n $input_length -l dir_num
         set -e $dir_hist[1][(expr $num_items - $dir_num)] 2> /dev/null
         set dir_hist_val (count $$dir_hist)
         tput cuu1
@@ -259,7 +259,7 @@ end
 ####################
 # => Command history
 ####################
-function __budspencer_create_cmd_hist -e fish_prompt -d 'Create command history without duplicates'
+function __mudfencer_create_cmd_hist -e fish_prompt -d 'Create command history without duplicates'
   if [ $_ = 'fish' ]
     set -l IFS ''
     set -l cmd (echo $history[1] | fish_indent | expand -t 4)
@@ -276,7 +276,7 @@ function __budspencer_create_cmd_hist -e fish_prompt -d 'Create command history 
     # Create command history
     if not begin
         expr $cmd : '[cdms] ' > /dev/null
-        or contains $cmd $budspencer_nocmdhist
+        or contains $cmd $mudfencer_nocmdhist
       end
       if contains $cmd $$cmd_hist
         set -e $cmd_hist[1][(contains -i $cmd $$cmd_hist)]
@@ -286,7 +286,7 @@ function __budspencer_create_cmd_hist -e fish_prompt -d 'Create command history 
   end
   set fish_bind_mode insert
   #echo -n \a
-  __budspencer_urgency
+  __mudfencer_urgency
 end
 
 function c -d 'List command history, load command from prompt with c <prompt number>'
@@ -300,7 +300,7 @@ function c -d 'List command history, load command from prompt with c <prompt num
     if [ (expr \( $num_items - $i \) \% 2) -eq 0 ]
       set_color normal
     else
-      set_color $budspencer_colors[4]
+      set_color $mudfencer_colors[4]
     end
     echo -n '▶ '(expr $num_items - $i)
     set -l item (echo $$cmd_hist[1][$i])
@@ -311,9 +311,9 @@ function c -d 'List command history, load command from prompt with c <prompt num
   else
     set last_item '-'(expr $num_items - 1)
   end
-  echo -en $budspencer_cursors[4]
+  echo -en $mudfencer_cursors[4]
   set input_length (expr length (expr $num_items - 1))
-  read -p 'echo -n (set_color -b $budspencer_colors[2] $budspencer_colors[9])" ↩ Exec [e|0"$last_item"] "(set_color -b normal $budspencer_colors[2])" "(set_color $budspencer_colors[9])' -n $input_length -l cmd_num
+  read -p 'echo -n (set_color -b $mudfencer_colors[2] $mudfencer_colors[9])" ↩ Exec [e|0"$last_item"] "(set_color -b normal $mudfencer_colors[2])" "(set_color $mudfencer_colors[9])' -n $input_length -l cmd_num
   switch $cmd_num
     case (seq 0 (expr $num_items - 1))
       commandline $$cmd_hist[1][(expr $num_items - $cmd_num)]
@@ -322,7 +322,7 @@ function c -d 'List command history, load command from prompt with c <prompt num
         tput cuu1
       end
     case 'e'
-      read -p 'echo -n (set_color -b $budspencer_colors[2] $budspencer_colors[9])" ↩ Erase [0"$last_item"] "(set_color -b normal $budspencer_colors[2])" "(set_color $budspencer_colors[9])' -n $input_length -l cmd_num
+      read -p 'echo -n (set_color -b $mudfencer_colors[2] $mudfencer_colors[9])" ↩ Erase [0"$last_item"] "(set_color -b normal $mudfencer_colors[2])" "(set_color $mudfencer_colors[9])' -n $input_length -l cmd_num
       for i in (seq (count (echo $$cmd_hist\n)))
         tput cuu1
       end
@@ -370,12 +370,12 @@ function m -d 'List bookmarks, jump to directory in list with m <number>'
   else
     for i in (seq $num_items)
       if [ $PWD = $bookmarks[$i] ]
-        set_color $budspencer_colors[10]
+        set_color $mudfencer_colors[10]
       else
         if [ (expr \( $num_items - $i \) \% 2) -eq 0 ]
           set_color normal
         else
-          set_color $budspencer_colors[4]
+          set_color $mudfencer_colors[4]
         end
       end
       echo '▶ '(expr $num_items - $i)\t$bookmarks[$i] | sed "s|$HOME|~|"
@@ -385,9 +385,9 @@ function m -d 'List bookmarks, jump to directory in list with m <number>'
     else
       set last_item '-'(expr $num_items - 1)
     end
-    echo -en $budspencer_cursors[1]
+    echo -en $mudfencer_cursors[1]
     set input_length (expr length (expr $num_items - 1))
-    read -p 'echo -n (set_color -b $budspencer_colors[2] $budspencer_colors[10])" ⌘ Goto [0"$last_item"] "(set_color -b normal $budspencer_colors[2])" "(set_color $budspencer_colors[10])' -n $input_length -l dir_num
+    read -p 'echo -n (set_color -b $mudfencer_colors[2] $mudfencer_colors[10])" ⌘ Goto [0"$last_item"] "(set_color -b normal $mudfencer_colors[2])" "(set_color $mudfencer_colors[10])' -n $input_length -l dir_num
     switch $dir_num
       case (seq 0 (expr $num_items - 1))
         cd $bookmarks[(expr $num_items - $dir_num)]
@@ -403,72 +403,72 @@ end
 #############
 # => Sessions
 #############
-function __budspencer_delete_zombi_sessions -d 'Delete zombi sessions'
-  for i in $budspencer_sessions_active_pid
+function __mudfencer_delete_zombi_sessions -d 'Delete zombi sessions'
+  for i in $mudfencer_sessions_active_pid
     if not contains $i %fish
-      set -l item (contains -i $i $budspencer_sessions_active_pid)
-      set -e budspencer_sessions_active_pid[$item]
-      set -e budspencer_sessions_active[$item]
+      set -l item (contains -i $i $mudfencer_sessions_active_pid)
+      set -e mudfencer_sessions_active_pid[$item]
+      set -e mudfencer_sessions_active[$item]
     end
   end
 end
 
-function __budspencer_create_new_session -d 'Create a new session'
-  set -U budspencer_session_cmd_hist_$argv[1] $$cmd_hist
-  set -U budspencer_session_dir_hist_$argv[1] $$dir_hist
-  set -U budspencer_sessions $argv[1] $budspencer_sessions
+function __mudfencer_create_new_session -d 'Create a new session'
+  set -U mudfencer_session_cmd_hist_$argv[1] $$cmd_hist
+  set -U mudfencer_session_dir_hist_$argv[1] $$dir_hist
+  set -U mudfencer_sessions $argv[1] $mudfencer_sessions
 end
 
-function __budspencer_erase_session -d 'Erase current session'
+function __mudfencer_erase_session -d 'Erase current session'
   if [ (count $argv) -eq 1 ]
     set_color $fish_color_error[1]
     echo 'Missing argument: name of session to erase'
     return
   end
-  if contains $argv[2] $budspencer_sessions_active
+  if contains $argv[2] $mudfencer_sessions_active
     set_color $fish_color_error[1]
     echo "Session '$argv[2]' cannot be erased because it's currently active."
     return
   end
-  if contains $argv[2] $budspencer_sessions
-    set -e budspencer_session_cmd_hist_$argv[2]
-    set -e budspencer_session_dir_hist_$argv[2]
-    set -e budspencer_sessions[(contains -i $argv[2] $budspencer_sessions)]
+  if contains $argv[2] $mudfencer_sessions
+    set -e mudfencer_session_cmd_hist_$argv[2]
+    set -e mudfencer_session_dir_hist_$argv[2]
+    set -e mudfencer_sessions[(contains -i $argv[2] $mudfencer_sessions)]
   else
     set_color $fish_color_error[1]
     echo "Session '$argv[2]' not found. "(set_color normal)'Enter '(set_color $fish_color_command[1])'s '(set_color normal)'to show a list of all recorded sessions.'
   end
 end
 
-function __budspencer_detach_session -d 'Detach current session'
+function __mudfencer_detach_session -d 'Detach current session'
   set cmd_hist cmd_hist_nosession
   set dir_hist dir_hist_nosession
   if [ -z $$dir_hist ] 2> /dev/null
     set $dir_hist $PWD
   end
   set dir_hist_val (count $$dir_hist)
-  set -e budspencer_sessions_active_pid[$argv] 2> /dev/null
-  set -e budspencer_sessions_active[$argv] 2> /dev/null
-  set budspencer_session_current ''
+  set -e mudfencer_sessions_active_pid[$argv] 2> /dev/null
+  set -e mudfencer_sessions_active[$argv] 2> /dev/null
+  set mudfencer_session_current ''
   cd $$dir_hist[1][$dir_hist_val]
   set no_prompt_hist 'T'
 end
 
-function __budspencer_attach_session -d 'Attach session'
+function __mudfencer_attach_session -d 'Attach session'
   set argv (echo -sn $argv\n | sed 's|[^[:alnum:]]|_|g')
-  if contains $argv[1] $budspencer_sessions_active
+  if contains $argv[1] $mudfencer_sessions_active
     wmctrl -a "✻ $argv[1]"
   else
     wt "✻ $argv[1]"
-    __budspencer_detach_session $argv[-1]
-    set budspencer_sessions_active $budspencer_sessions_active $argv[1]
-    set budspencer_sessions_active_pid $budspencer_sessions_active_pid %self
-    set budspencer_session_current $argv[1]
-    if not contains $argv[1] $budspencer_sessions
-      __budspencer_create_new_session $argv[1]
+    __mudfencer_detach_session $argv[-1]
+    set mudfencer_sessions_active $mudfencer_sessions_active $argv[1]
+    set mudfencer_sessions_active_pid $mudfencer_sessions_active_pid %self
+    set mudfencer_session_current $argv[1]
+    if not contains $argv[1] $mudfencer_sessions
+      __mudfencer_create_new_session $argv[1]
     end
-    set cmd_hist budspencer_session_cmd_hist_$argv[1]
-    set dir_hist budspencer_session_dir_hist_$argv[1]
+    set cmd_hist mudfencer_session_cmd_hist_$argv[1]
+    set dir_hist mudfencer_session_dir_hist_$argv[1]
     if [ -z $$dir_hist ] 2> /dev/null
       set $dir_hist $PWD
     end
@@ -479,10 +479,10 @@ function __budspencer_attach_session -d 'Attach session'
 end
 
 function s -d 'Create, delete or attach session'
-  __budspencer_delete_zombi_sessions
+  __mudfencer_delete_zombi_sessions
   if [ (count $argv) -eq 0 ]
     set -l active_indicator
-    set -l num_items (count $budspencer_sessions)
+    set -l num_items (count $mudfencer_sessions)
     if [ $num_items -eq 0 ]
       set_color $fish_color_error[1]
       echo -n 'Session list is empty. '
@@ -497,43 +497,43 @@ function s -d 'Create, delete or attach session'
       return
     end
     for i in (seq $num_items)
-      if [ $budspencer_sessions[$i] = $budspencer_session_current ]
-        set_color $budspencer_colors[8]
+      if [ $mudfencer_sessions[$i] = $mudfencer_session_current ]
+        set_color $mudfencer_colors[8]
       else
         if [ (expr \( $num_items - $i \) \% 2) -eq 0 ]
           set_color normal
         else
-          set_color $budspencer_colors[4]
+          set_color $mudfencer_colors[4]
         end
       end
-      if contains $budspencer_sessions[$i] $budspencer_sessions_active
+      if contains $mudfencer_sessions[$i] $mudfencer_sessions_active
         set active_indicator '✻ '
       else
         set active_indicator ' '
       end
-      echo '▶ '(expr $num_items - $i)\t$active_indicator$budspencer_sessions[$i]
+      echo '▶ '(expr $num_items - $i)\t$active_indicator$mudfencer_sessions[$i]
     end
     if [ $num_items -eq 1 ]
       set last_item ''
     else
       set last_item '-'(expr $num_items - 1)
     end
-    echo -en $budspencer_cursors[3]
+    echo -en $mudfencer_cursors[3]
     set input_length (expr length (expr $num_items - 1))
-    read -p 'echo -n (set_color -b $budspencer_colors[2] $budspencer_colors[8])" ✻ Attach [e|0"$last_item"] "(set_color -b normal $budspencer_colors[2])" "(set_color $budspencer_colors[8])' -n $input_length -l session_num
+    read -p 'echo -n (set_color -b $mudfencer_colors[2] $mudfencer_colors[8])" ✻ Attach [e|0"$last_item"] "(set_color -b normal $mudfencer_colors[2])" "(set_color $mudfencer_colors[8])' -n $input_length -l session_num
     set pcount (expr $pcount - 1)
     switch $session_num
       case (seq 0 (expr $num_items - 1))
-        set argv[1] $budspencer_sessions[(expr $num_items - $session_num)]
+        set argv[1] $mudfencer_sessions[(expr $num_items - $session_num)]
         for i in (seq (expr $num_items + 1))
           tput cuu1
         end
         tput ed
         tput cuu1
       case 'e'
-        read -p 'echo -n (set_color -b $budspencer_colors[2] $budspencer_colors[8])" ✻ Erase [0"$last_item"] "(set_color -b normal $budspencer_colors[2])" "(set_color $budspencer_colors[8])' -n $input_length -l session_num
+        read -p 'echo -n (set_color -b $mudfencer_colors[2] $mudfencer_colors[8])" ✻ Erase [0"$last_item"] "(set_color -b normal $mudfencer_colors[2])" "(set_color $mudfencer_colors[8])' -n $input_length -l session_num
         if [ (expr $num_items - $session_num) -gt 0 ]
-          __budspencer_erase_session -e $budspencer_sessions[(expr $num_items - $session_num)]
+          __mudfencer_erase_session -e $mudfencer_sessions[(expr $num_items - $session_num)]
         end
         for i in (seq (expr $num_items + 3))
           tput cuu1
@@ -549,13 +549,13 @@ function s -d 'Create, delete or attach session'
         return
     end
   end
-  set -l item (contains -i %self $budspencer_sessions_active_pid 2> /dev/null)
+  set -l item (contains -i %self $mudfencer_sessions_active_pid 2> /dev/null)
   switch $argv[1]
     case '-e'
-      __budspencer_erase_session $argv
+      __mudfencer_erase_session $argv
     case '-d'
       wt 'fish'
-      __budspencer_detach_session $item
+      __mudfencer_detach_session $item
       tput cuu1
       tput ed
       set pcount (expr $pcount - 1)
@@ -563,116 +563,116 @@ function s -d 'Create, delete or attach session'
       set_color $fish_color_error[1]
       echo "Invalid argument: $argv[1]"
     case '*'
-      __budspencer_attach_session $argv $item
+      __mudfencer_attach_session $argv $item
   end
 end
 
 #####################################
 # => Commandline editing with $EDITOR
 #####################################
-function __budspencer_edit_commandline -d 'Open current commandline with your editor'
-  commandline > $budspencer_tmpfile
-  eval $EDITOR $budspencer_tmpfile
+function __mudfencer_edit_commandline -d 'Open current commandline with your editor'
+  commandline > $mudfencer_tmpfile
+  eval $EDITOR $mudfencer_tmpfile
   set -l IFS ''
-  if [ -s $budspencer_tmpfile ]
-    commandline (sed 's|^\s*||' $budspencer_tmpfile)
+  if [ -s $mudfencer_tmpfile ]
+    commandline (sed 's|^\s*||' $mudfencer_tmpfile)
   else
     commandline ''
   end
-  rm $budspencer_tmpfile
+  rm $mudfencer_tmpfile
 end
 
 ########################
 # => Virtual Env segment
 ########################
-function __budspencer_prompt_virtual_env -d 'Return the current virtual env name'
+function __mudfencer_prompt_virtual_env -d 'Return the current virtual env name'
   if set -q VIRTUAL_ENV
-    set_color -b $budspencer_colors[9]
+    set_color -b $mudfencer_colors[9]
     echo -n ''
     echo -n ' '(basename "$VIRTUAL_ENV")' '
-    set_color -b $budspencer_colors[1] $budspencer_colors[9]
+    set_color -b $mudfencer_colors[1] $mudfencer_colors[9]
   end
 end
 ################
 # => Git segment
 ################
-function __budspencer_prompt_git_branch -d 'Return the current branch name'
+function __mudfencer_prompt_git_branch -d 'Return the current branch name'
   set -l branch (command git symbolic-ref HEAD 2> /dev/null | sed -e 's|^refs/heads/||')
   if not test $branch > /dev/null
     set -l position (command git describe --contains --all HEAD 2> /dev/null)
     if not test $position > /dev/null
       set -l commit (command git rev-parse HEAD 2> /dev/null | sed 's|\(^.......\).*|\1|')
       if test $commit
-        set_color -b $budspencer_colors[11]
+        set_color -b $mudfencer_colors[11]
         switch $pwd_style
           case short long
-            echo -n ''(set_color $budspencer_colors[1])' ➦ '$commit' '(set_color $budspencer_colors[11])
+            echo -n ''(set_color $mudfencer_colors[1])' ➦ '$commit' '(set_color $mudfencer_colors[11])
           case none
             echo -n ''
         end
         set_color normal
-        set_color $budspencer_colors[11]
+        set_color $mudfencer_colors[11]
       end
     else
-      set_color -b $budspencer_colors[9]
+      set_color -b $mudfencer_colors[9]
       switch $pwd_style
         case short long
-          echo -n ''(set_color $budspencer_colors[1])'  '$position' '(set_color $budspencer_colors[9])
+          echo -n ''(set_color $mudfencer_colors[1])'  '$position' '(set_color $mudfencer_colors[9])
         case none
           echo -n ''
       end
       set_color normal
-      set_color $budspencer_colors[9]
+      set_color $mudfencer_colors[9]
     end
   else
-    set_color -b $budspencer_colors[3]
+    set_color -b $mudfencer_colors[3]
     switch $pwd_style
       case short long
-        echo -n ''(set_color $budspencer_colors[1])'  '$branch' '(set_color $budspencer_colors[3])
+        echo -n ''(set_color $mudfencer_colors[1])'  '$branch' '(set_color $mudfencer_colors[3])
       case none
         echo -n ''
     end
     set_color normal
-    set_color $budspencer_colors[3]
+    set_color $mudfencer_colors[3]
   end
 end
 
 ######################
 # => Bind-mode segment
 ######################
-function __budspencer_prompt_bindmode -d 'Displays the current mode'
+function __mudfencer_prompt_bindmode -d 'Displays the current mode'
   switch $fish_bind_mode
     case default
-      set budspencer_current_bindmode_color $budspencer_colors[10]
-      echo -en $budspencer_cursors[1]
+      set mudfencer_current_bindmode_color $mudfencer_colors[10]
+      echo -en $mudfencer_cursors[1]
     case insert
-      set budspencer_current_bindmode_color $budspencer_colors[5]
-      echo -en $budspencer_cursors[2]
+      set mudfencer_current_bindmode_color $mudfencer_colors[5]
+      echo -en $mudfencer_cursors[2]
       if [ "$pwd_hist_lock" = true ]
         set pwd_hist_lock false
-        __budspencer_create_dir_hist
+        __mudfencer_create_dir_hist
       end
     case visual
-      set budspencer_current_bindmode_color $budspencer_colors[8]
-      echo -en $budspencer_cursors[3]
+      set mudfencer_current_bindmode_color $mudfencer_colors[8]
+      echo -en $mudfencer_cursors[3]
   end
-  if [ (count $budspencer_prompt_error) -eq 1 ]
-    set budspencer_current_bindmode_color $budspencer_colors[7]
+  if [ (count $mudfencer_prompt_error) -eq 1 ]
+    set mudfencer_current_bindmode_color $mudfencer_colors[7]
   end
-  set_color -b $budspencer_current_bindmode_color $budspencer_colors[1]
+  set_color -b $mudfencer_current_bindmode_color $mudfencer_colors[1]
   switch $pwd_style
     case short long
-      echo -n " $pcount "
+      echo -n " $(task +in +PENDING count) "
   end
-  set_color -b normal $budspencer_current_bindmode_color
+  set_color -b normal $mudfencer_current_bindmode_color
 end
 
 ####################
 # => Symbols segment
 ####################
-function __budspencer_prompt_left_symbols -d 'Display symbols'
+function __mudfencer_prompt_left_symbols -d 'Display symbols'
     set -l symbols_urgent 'F'
-    set -l symbols (set_color -b $budspencer_colors[2])''
+    set -l symbols (set_color -b $mudfencer_colors[2])''
 
     set -l jobs (jobs | wc -l | tr -d '[:space:]')
     if [ -e ~/.taskrc ]
@@ -693,103 +693,103 @@ function __budspencer_prompt_left_symbols -d 'Display symbols'
     end
 
     if [ $symbols_style = 'symbols' ]
-        if [ $budspencer_session_current != '' ]
-            set symbols $symbols(set_color -o $budspencer_colors[8])' ✻'
+        if [ $mudfencer_session_current != '' ]
+            set symbols $symbols(set_color -o $mudfencer_colors[8])' ✻'
             set symbols_urgent 'T'
         end
         if contains $PWD $bookmarks
-            set symbols $symbols(set_color -o $budspencer_colors[10])' ⌘'
+            set symbols $symbols(set_color -o $mudfencer_colors[10])' ⌘'
         end
         if set -q -x VIM
-            set symbols $symbols(set_color -o $budspencer_colors[9])' V'
+            set symbols $symbols(set_color -o $mudfencer_colors[9])' V'
             set symbols_urgent 'T'
         end
         if set -q -x RANGER_LEVEL
-            set symbols $symbols(set_color -o $budspencer_colors[9])' R'
+            set symbols $symbols(set_color -o $mudfencer_colors[9])' R'
             set symbols_urgent 'T'
         end
         if [ $jobs -gt 0 ]
-            set symbols $symbols(set_color -o $budspencer_colors[11])' ⚙'
+            set symbols $symbols(set_color -o $mudfencer_colors[11])' ⚙'
             set symbols_urgent 'T'
         end
         if [ ! -w . ]
-            set symbols $symbols(set_color -o $budspencer_colors[6])' '
+            set symbols $symbols(set_color -o $mudfencer_colors[6])' '
         end
         if [ $todo -gt 0 ]
-            set symbols $symbols(set_color -o $budspencer_colors[4])
+            set symbols $symbols(set_color -o $mudfencer_colors[4])
         end
         if [ $overdue -gt 0 ]
-            set symbols $symbols(set_color -o $budspencer_colors[8])
+            set symbols $symbols(set_color -o $mudfencer_colors[8])
         end
         if [ (expr $todo + $overdue) -gt 0 ]
             set symbols $symbols' ⚔'
             set symbols_urgent 'T'
         end
         if [ $appointments -gt 0 ]
-            set symbols $symbols(set_color -o $budspencer_colors[5])' ⚑'
+            set symbols $symbols(set_color -o $mudfencer_colors[5])' ⚑'
             set symbols_urgent 'T'
         end
         if [ $last_status -eq 0 ]
-            set symbols $symbols(set_color -o $budspencer_colors[12])' ✔'
+            set symbols $symbols(set_color -o $mudfencer_colors[12])' ✔'
         else
-            set symbols $symbols(set_color -o $budspencer_colors[7])' ✘'
+            set symbols $symbols(set_color -o $mudfencer_colors[7])' ✘'
         end
         if [ $USER = 'root' ]
-            set symbols $symbols(set_color -o $budspencer_colors[6])' ⚡'
+            set symbols $symbols(set_color -o $mudfencer_colors[6])' ⚡'
             set symbols_urgent 'T'
         end
     else
-        if [ $budspencer_session_current != '' ] 2> /dev/null
-            set symbols $symbols(set_color $budspencer_colors[8])' '(expr (count $budspencer_sessions) - (contains -i $budspencer_session_current $budspencer_sessions))
+        if [ $mudfencer_session_current != '' ] 2> /dev/null
+            set symbols $symbols(set_color $mudfencer_colors[8])' '(expr (count $mudfencer_sessions) - (contains -i $mudfencer_session_current $mudfencer_sessions))
             set symbols_urgent 'T'
         end
         if contains $PWD $bookmarks
-            set symbols $symbols(set_color $budspencer_colors[10])' '(expr (count $bookmarks) - (contains -i $PWD $bookmarks))
+            set symbols $symbols(set_color $mudfencer_colors[10])' '(expr (count $bookmarks) - (contains -i $PWD $bookmarks))
         end
         if set -q -x VIM
-            set symbols $symbols(set_color -o $budspencer_colors[9])' V'(set_color normal)(set_color -b $budspencer_colors[2])
+            set symbols $symbols(set_color -o $mudfencer_colors[9])' V'(set_color normal)(set_color -b $mudfencer_colors[2])
             set symbols_urgent 'T'
         end
         if set -q -x RANGER_LEVEL
-            set symbols $symbols(set_color $budspencer_colors[9])' '$RANGER_LEVEL
+            set symbols $symbols(set_color $mudfencer_colors[9])' '$RANGER_LEVEL
             set symbols_urgent 'T'
         end
         if [ $jobs -gt 0 ]
-            set symbols $symbols(set_color $budspencer_colors[11])' '$jobs
+            set symbols $symbols(set_color $mudfencer_colors[11])' '$jobs
             set symbols_urgent 'T'
         end
         if [ ! -w . ]
-            set symbols $symbols(set_color -o $budspencer_colors[6])' '(set_color normal)(set_color -b $budspencer_colors[2])
+            set symbols $symbols(set_color -o $mudfencer_colors[6])' '(set_color normal)(set_color -b $mudfencer_colors[2])
         end
         if [ $todo -gt 0 ]
-            set symbols $symbols(set_color $budspencer_colors[4])
+            set symbols $symbols(set_color $mudfencer_colors[4])
         end
         if [ $overdue -gt 0 ]
-            set symbols $symbols(set_color $budspencer_colors[8])
+            set symbols $symbols(set_color $mudfencer_colors[8])
         end
         if [ (expr $todo + $overdue) -gt 0 ]
             set symbols $symbols" $todo"
             set symbols_urgent 'T'
         end
         if [ $appointments -gt 0 ]
-            set symbols $symbols(set_color $budspencer_colors[5])" $appointments"
+            set symbols $symbols(set_color $mudfencer_colors[5])" $appointments"
             set symbols_urgent 'T'
         end
         if [ $last_status -eq 0 ]
-            set symbols $symbols(set_color $budspencer_colors[12])' '$last_status
+            set symbols $symbols(set_color $mudfencer_colors[12])' '$last_status
         else
-            set symbols $symbols(set_color $budspencer_colors[7])' '$last_status
+            set symbols $symbols(set_color $mudfencer_colors[7])' '$last_status
         end
         if [ $USER = 'root' ]
-            set symbols $symbols(set_color -o $budspencer_colors[6])' ⚡'
+            set symbols $symbols(set_color -o $mudfencer_colors[6])' ⚡'
             set symbols_urgent 'T'
         end
     end
-    set symbols $symbols(set_color $budspencer_colors[2])' '(set_color normal)(set_color $budspencer_colors[2])
+    set symbols $symbols(set_color $mudfencer_colors[2])' '(set_color normal)(set_color $mudfencer_colors[2])
     switch $pwd_style
         case none
             if test $symbols_urgent = 'T'
-                set symbols (set_color -b $budspencer_colors[2])''(set_color normal)(set_color $budspencer_colors[2])
+                set symbols (set_color -b $mudfencer_colors[2])''(set_color normal)(set_color $mudfencer_colors[2])
             else
                 set symbols ''
             end
@@ -802,11 +802,11 @@ end
 ###############################################################################
 
 # Initialize some global variables
-set -g budspencer_prompt_error
-set -g budspencer_current_bindmode_color
-set -U budspencer_sessions_active $budspencer_sessions_active
-set -U budspencer_sessions_active_pid $budspencer_sessions_active_pid
-set -g budspencer_session_current ''
+set -g mudfencer_prompt_error
+set -g mudfencer_current_bindmode_color
+set -U mudfencer_sessions_active $mudfencer_sessions_active
+set -U mudfencer_sessions_active_pid $mudfencer_sessions_active_pid
+set -g mudfencer_session_current ''
 set -g cmd_hist_nosession
 set -g cmd_hist cmd_hist_nosession
 set -g CMD_DURATION 0
@@ -825,24 +825,24 @@ end
 
 # Set favorite editor
 if not set -q EDITOR
-  set -g EDITOR vi
+  set -g EDITOR code
 end
 
 # Source config file
-if [ -e $budspencer_config ]
-  source $budspencer_config
+if [ -e $mudfencer_config ]
+  source $mudfencer_config
 end
 
 # Don't save in command history
-if not set -q budspencer_nocmdhist
-  set -U budspencer_nocmdhist 'c' 'd' 'll' 'ls' 'm' 's'
+if not set -q mudfencer_nocmdhist
+  set -U mudfencer_nocmdhist 'c' 'd' 'll' 'ls' 'm' 's'
 end
 
 # Set PWD segment style
-if not set -q budspencer_pwdstyle
-  set -U budspencer_pwdstyle short long none
+if not set -q mudfencer_pwdstyle
+  set -U mudfencer_pwdstyle short long none
 end
-set pwd_style $budspencer_pwdstyle[1]
+set pwd_style $mudfencer_pwdstyle[2]
 
 # Cd to newest bookmark if this is a login shell
 if not begin
@@ -860,7 +860,7 @@ set -x LOGIN $USER
 # => Left prompt
 ###############################################################################
 
-function fish_prompt -d 'Write out the left prompt of the budspencer theme'
+function fish_prompt -d 'Write out the left prompt of the mudfencer theme'
   set -g last_status $status
-  echo -n -s (__budspencer_prompt_bindmode) (__budspencer_prompt_virtual_env) (__budspencer_prompt_git_branch) (__budspencer_prompt_left_symbols) ' ' (set_color normal)
+  echo -n -s (__mudfencer_prompt_bindmode) (__mudfencer_prompt_virtual_env) (__mudfencer_prompt_git_branch) (__mudfencer_prompt_left_symbols) ' ' (set_color normal)
 end

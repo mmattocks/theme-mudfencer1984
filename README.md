@@ -1,9 +1,9 @@
-# Budspencer theme
+# mudfencer theme
 
 A theme for nerds, makes fish even more powerful. It's equipped with a hell of a
 lot of nice functions and key bindings to speed up your workflow.
 
-The philosophy behind budspencer theme:
+The philosophy behind mudfencer theme:
 
 * Delimit the prompt lines clearly to the output.
 * Produce output only if it contains relevant information.
@@ -39,7 +39,7 @@ The theme uses advanced `sed` and `expr` features. The OS X tools have
 restricted functionality.
 
 Try `expr` from `coreutils` package if you see `expr: syntax error` in
-budspencer prompt.
+mudfencer prompt.
 
 Execute `brew install --with-default-names gnu-sed` if there are
 `Array index out of bounds` messages in your prompt.
@@ -58,12 +58,12 @@ before enabling the theme.
 
 ### Colors
 
-Redefine `$budspencer_colors` with the `set` command in order to change the
+Redefine `$mudfencer_colors` with the `set` command in order to change the
 colors of the prompt.
 
 Example:
 ```
-set budspencer_colors 000000 333333 666666 ffffff ffff00 ff6600 ff0000 ff0033 3300ff 0000ff 00ffff
+set mudfencer_colors 000000 333333 666666 ffffff ffff00 ff6600 ff0000 ff0033 3300ff 0000ff 00ffff
 00ff00
 ```
 will result in a prompt like this:
@@ -74,21 +74,21 @@ enable them with `day` and `night`, respectively.
 
 ### Command history
 Commands that shouldn't appear in the command history are defined by a universal
-list `$budspencer_nocmdhist`. Default:
+list `$mudfencer_nocmdhist`. Default:
 ```
-set -U budspencer_nocmdhist c d ll ls m s
+set -U mudfencer_nocmdhist c d ll ls m s
 ```
 
 ### Disable/reenable greeting
 
 Disable:
 ```
-set -U budspencer_nogreeting
+set -U mudfencer_nogreeting
 ```
 
 Reenable:
 ```
-set -e budspencer_nogreeting
+set -e mudfencer_nogreeting
 ```
 
 ## Outer prompt segments
@@ -150,8 +150,8 @@ The following shortcuts need vi-mode:
         - `none` (shows nothing except small delimiter; useful for small terminals)
         - If prompt is toggled with `#`, the IP address is shown instead of the
           hostname.
-    * configurable by universal list `$budspencer_pwdstyle` (if not set, defaults to
-      `short long none`); note that changes to `$budspencer_pwdstyle` keep persistant as it's
+    * configurable by universal list `$mudfencer_pwdstyle` (if not set, defaults to
+      `short long none`); note that changes to `$mudfencer_pwdstyle` keep persistant as it's
       a universal variable.
 
 ![pwd style][pwdstyle]
@@ -233,7 +233,7 @@ don't need to check manually whether it's done.
 If you have still activated the acoustic bell, you probably hate that feature.
 Switch it off in that case:
 ```
-set -U budspencer_nobell
+set -U mudfencer_nobell
 ```
 
 ## TODO
@@ -243,9 +243,9 @@ set -U budspencer_nobell
 ## Feedback
 
 Give me feedback if you ...
-* ... have ideas how I could improve budspencer.
-* ... have problems with budspencer. 
-* ... have questions concerning budspencer.
+* ... have ideas how I could improve mudfencer.
+* ... have problems with mudfencer. 
+* ... have questions concerning mudfencer.
 
 [font]: https://github.com/Lokaltog/powerline-fonts
 [ranger]: http://ranger.nongnu.org/
@@ -253,7 +253,7 @@ Give me feedback if you ...
 [remind]: http://www.roaringpenguin.com/products/remind
 [fish-git]: https://github.com/fish-shell/fish-shell.git
 [fish-nightly]: https://github.com/fish-shell/fish-shell/wiki/Nightly-builds
-[screenshot]: https://raw.githubusercontent.com/tannhuber/media/master/budspencer.jpg
-[colors]: https://raw.githubusercontent.com/tannhuber/media/master/budspencer_replace_colors.jpg
-[dirmenu]: https://raw.githubusercontent.com/tannhuber/media/master/budspencer_dir_menu.jpg
-[pwdstyle]: https://raw.githubusercontent.com/tannhuber/media/master/budspencer_pwd_style.jpg
+[screenshot]: https://raw.githubusercontent.com/tannhuber/media/master/mudfencer.jpg
+[colors]: https://raw.githubusercontent.com/tannhuber/media/master/mudfencer_replace_colors.jpg
+[dirmenu]: https://raw.githubusercontent.com/tannhuber/media/master/mudfencer_dir_menu.jpg
+[pwdstyle]: https://raw.githubusercontent.com/tannhuber/media/master/mudfencer_pwd_style.jpg
