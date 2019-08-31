@@ -662,7 +662,7 @@ function __mudfencer_prompt_bindmode -d 'Displays the current mode'
   set_color -b $mudfencer_current_bindmode_color $mudfencer_colors[1]
   switch $pwd_style
     case short long
-      echo -n " $(task +in +PENDING count) "
+      echo -n " (task +in +PENDING count) "
   end
   set_color -b normal $mudfencer_current_bindmode_color
 end
