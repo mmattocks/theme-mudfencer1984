@@ -36,8 +36,8 @@
 ###############################################################################
 
 # Define colors
-set -U mudfencer_night 000000 083743 445659 fdf6e3 b58900 cb4b16 dc121f af005f 6c71c4 268bd2 2aa198 859900
-set -U mudfencer_day 000000 333333 666666 ffffff ffff00 ff6600 ff0000 ff0033 3300ff 00aaff 00ffff 00ff00
+set -U mudfencer_night 000000 083743 445659 fdf6e3 ff74f3 cb4b16 dbff52 af005f 6c71c4 3fffff 2aa198 859900
+set -U mudfencer_day 000000 333333 666666 ffffff ff00e9 ff6600 c9ff00 ff0033 3300ff 00ffff 00ffff 00ff00
 if not set -q mudfencer_colors
   # Values are: black dark_gray light_gray white yellow orange red magenta violet blue cyan green
   set -U mudfencer_colors $mudfencer_night
