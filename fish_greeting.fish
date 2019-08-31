@@ -25,8 +25,7 @@ function fish_greeting -d 'Show greeting in login shell.'
       and not set -q -x VIM
       end
       fish_logo brmagenta brblue bryellow \\ o
-      echo Welcome to (set_color -b $mudfencer_colors[2] \
-      $mudfencer_colors[10])fish ~>(set_color normal). 
+      echo Welcome to (set_color -b $mudfencer_colors[2] $mudfencer_colors[10])fish(set_color normal). 
       end
   end
 end
