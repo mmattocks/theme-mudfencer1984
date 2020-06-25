@@ -676,8 +676,8 @@ function __mudfencer_prompt_left_symbols -d 'Display symbols'
 
     set -l jobs (jobs | wc -l | tr -d '[:space:]')
     if [ -e ~/.taskrc ]
-        set todo (task rc.verbose=nothing rc.gc=off due.before:sunday 2> /dev/null | tail -1 | cut -f1 -d' ')
-        set overdue (task rc.verbose=nothing rc.gc=off due.before:today 2> /dev/null | tail -1 | cut -f1 -d' ')
+        set todo (task rc.gc=off due.before:sunday 2> /dev/null | tail -1 | cut -f1 -d' ')
+        set overdue (task rc.gc=off due.before:today 2> /dev/null | tail -1 | cut -f1 -d' ')
     end
     if [ -e ~/.reminders ]
         set appointments (rem -a | cut -f1 -d' ')
